@@ -151,7 +151,12 @@
                 </ul>
             </div>
         </div>
-
+        <!-- Short Disclaimer displayed immediately under the results -->
+        <div style="margin-top:20px;font-size:12px;color:#666;text-align:center;">
+            <strong>DISCLAIMER:</strong> This estimate is for informational purposes only and is not a commitment to lend or financial advice. Actual payments may vary based on taxes, insurance, credit profile, and lender terms.
+        </div>
+</br>
+    </br>
         <h3>Down Payment Comparison</h3>
         <table>
             <thead>
@@ -169,8 +174,8 @@
             <div class="agent-info">
                 <img src="tejas-desai.jpg" alt="Tejas Desai" class="profile-pic">
                 <div style="text-align: left;">
-                    <h2 style="margin:0; font-size: 22px;">Tejas Desai</h2>
-                    <p style="font-size: 14px; color: var(--gray-text); font-weight: bold;">Compass Real Estate</p>
+                    <h2 style="margin:0; font-size: 22px;">TEJAS DESAI</h2>
+                    <p style="font-size: 14px; color: var(--gray-text); font-weight: bold;">COMPASS REAL ESTATE</p>
                 </div>
             </div>
 
@@ -179,12 +184,23 @@
 
             <div class="logo-row">
                 <img src="compass-logo.png" alt="Compass" class="brand-logo">
-              
+                
             </div>
+            <p style="font-size:12px; color:#666; text-align:center; margin-top:10px;">
+                <a href="javascript:void(0)" onclick="toggleDisclaimer()" style="text-decoration:underline; cursor:pointer;">VIEW FULL DISCLAIMER</a>
+            </p>
 
-            <div class="disclaimer">
-                <strong>LEGAL DISCLAIMER:</strong> This tool is provided for illustrative purposes only and does not constitute a commitment to lend. The results are estimates based on standard DTI (Debt-to-Income) ratios of 28% for housing and 36% for total debt. Actual interest rates, taxes, and insurance premiums vary by zip code, lender, and individual creditworthiness. Please consult with a professional mortgage specialist for formal pre-approval and financial advice.
-This calculator is for informational and educational purposes only and is intended to provide a general estimate of affordability. It does not constitute an offer to lend, a commitment to a specific interest rate, or financial advice. Figures such as property taxes, insurance, and interest rates are estimates based on national averages and may vary significantly by location and individual credit profile. For accurate financial projections and mortgage pre-approval, please consult with a licensed mortgage specialist or financial advisor.
+            <div class="disclaimer" id="fullDisclaimer" style="display:none;">
+                <strong>LEGAL DISCLAIMER:</strong>
+                This calculator is provided for informational, educational, and illustrative purposes only and does not constitute financial, legal, or tax advice, nor a commitment or offer to lend. The results are estimates based on the information provided and commonly used guidelines, including standard debt-to-income (DTI) ratios (such as 28% for housing and 36% for total debt), and may not reflect actual lending criteria.
+                <br><br>
+                Estimates may not include all costs associated with homeownership, such as property taxes, homeowner’s insurance, private mortgage insurance (PMI), HOA fees, or other expenses unless specifically indicated. Interest rates, taxes, insurance premiums, and loan terms can vary significantly based on location, market conditions, lender requirements, and individual credit profile.
+                <br><br>
+                Actual loan approval, terms, and monthly payments will vary. For accurate financial projections, personalized advice, and mortgage pre-approval, please consult a licensed mortgage lender or financial professional.
+                <br><br>
+                This tool is provided by a real estate professional and is not affiliated with or endorsed by any lending institution. Users should independently verify all information before making financial decisions.
+                <br><br>
+                Provided by Tejas Desai, Realtor® with Compass. This is an independent tool and is not an official Compass product.
             </div>
         </footer>
     </div>
@@ -253,7 +269,10 @@ This calculator is for informational and educational purposes only and is intend
         document.getElementById('res-tax').innerText = formatter.format(main.tax);
         document.getElementById('res-ins').innerText = formatter.format(main.ins);
         document.getElementById('res-pmi').innerText = formatter.format(main.pmi);
-        document.getElementById('res-total').innerText = formatter.format(main.total);
+        // Present the total monthly payment as a range to reduce liability
+        const low = main.total * 0.95;
+        const high = main.total * 1.10;
+        document.getElementById('res-total').innerText = formatter.format(low) + " - " + formatter.format(high);
 
         // 5. Comparison Table
         const table = document.getElementById('comparison-table');
@@ -269,7 +288,12 @@ This calculator is for informational and educational purposes only and is intend
         });
 
         document.getElementById('results').style.display = 'block';
-        window.scrollTo({ top: document.getElementById('results').offsetTop, behavior: 'smooth' });
+    }
+
+    // Toggle display of the full disclaimer when the user clicks "View full disclaimer"
+    function toggleDisclaimer() {
+        const el = document.getElementById("fullDisclaimer");
+        el.style.display = (el.style.display === "none" || el.style.display === "") ? "block" : "none";
     }
 </script>
 </body>
